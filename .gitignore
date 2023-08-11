@@ -1,3 +1,13 @@
 # Ignore PyCharm IDEA files and directories
 .idea/
+.DS_Store
 
+# Ignore __pycache__ files
+src/__pycache__/*
+
+# Ignore build files
+build/*
+dist/*
+psycopg2_utility_functions.egg-info/*
+src/psycopg2_utility_functions.egg-info/*
+pyproject.toml

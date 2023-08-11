@@ -1,13 +1,13 @@
 # Psycopg2 Utility Functions
 
-Your Package Name is a Python package that provides utility functions for basic PostgreSQL database operations using the psycopg2 library.
+"Psycopg2 Utility Functions" is a Python package that provides utility functions for basic PostgreSQL database operations using the psycopg2 library.
 
 ## Installation
 
-You can install Your Package Name using pip:
+You can install this package using pip:
 
 ```bash
-pip install psycopg2-utility-functions
+pip install psycopg2_utility_functions
 ```
 
 # Usage
