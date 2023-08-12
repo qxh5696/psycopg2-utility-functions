@@ -29,6 +29,7 @@ def connect_to_database(database, user, password, host, port):
         return connection
     except psycopg2.Error as e:
         print("Error connecting to the database:", e)
+        raise e
 
 
 def execute_query(connection, query):
@@ -42,13 +43,15 @@ def execute_query(connection, query):
     Raises:
         psycopg2.Error: If an error occurs while executing the query.
     """
+    cursor = connection.cursor()
     try:
-        cursor = connection.cursor()
         cursor.execute(query)
         connection.commit()
         cursor.close()
     except psycopg2.Error as e:
         print("Error executing query:", e)
+        cursor.close()
+        raise e
 
 
 def fetch_data(connection, query, cls):
@@ -66,8 +69,8 @@ def fetch_data(connection, query, cls):
     Raises:
         psycopg2.Error: If an error occurs while fetching data.
     """
+    cursor = connection.cursor()
     try:
-        cursor = connection.cursor()
         cursor.execute(query)
         result = cursor.fetchall()
         cursor.close()
@@ -80,6 +83,8 @@ def fetch_data(connection, query, cls):
         return objects
     except psycopg2.Error as e:
         print("Error fetching data:", e)
+        cursor.close()
+        raise e
 
 
 def insert_data(connection, table, data):
@@ -94,8 +99,8 @@ def insert_data(connection, table, data):
     Raises:
         psycopg2.Error: If an error occurs while inserting data.
     """
+    cursor = connection.cursor()
     try:
-        cursor = connection.cursor()
         placeholders = ', '.join(['%s'] * len(data))
         columns = ', '.join(data.keys())
         values = tuple(data.values())
@@ -105,6 +110,8 @@ def insert_data(connection, table, data):
         cursor.close()
     except psycopg2.Error as e:
         print("Error inserting data:", e)
+        cursor.close()
+        raise e
 
 
 def update_data(connection, table, condition, data):
@@ -120,8 +127,8 @@ def update_data(connection, table, condition, data):
     Raises:
         psycopg2.Error: If an error occurs while updating data.
     """
+    cursor = connection.cursor()
     try:
-        cursor = connection.cursor()
         set_values = ', '.join([f"{column} = %s" for column in data.keys()])
         values = tuple(data.values())
         query = f"UPDATE {table} SET {set_values} WHERE {condition}"
@@ -130,6 +137,8 @@ def update_data(connection, table, condition, data):
         cursor.close()
     except psycopg2.Error as e:
         print("Error updating data:", e)
+        cursor.close()
+        raise e
 
 
 def delete_data(connection, table, condition):
@@ -144,11 +153,13 @@ def delete_data(connection, table, condition):
     Raises:
         psycopg2.Error: If an error occurs while deleting data.
     """
+    cursor = connection.cursor()
     try:
-        cursor = connection.cursor()
         query = f"DELETE FROM {table} WHERE {condition}"
         cursor.execute(query)
         connection.commit()
         cursor.close()
     except psycopg2.Error as e:
         print("Error deleting data:", e)
+        cursor.close()
+        raise e
