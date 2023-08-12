@@ -2,8 +2,10 @@ from setuptools import setup, find_packages
 
 VERSION = '0.0.11'
 DESCRIPTION = 'Utility functions/wrapper for psycopg2 python package'
-LONG_DESCRIPTION = 'Python package that extends basic functionality for interacting with PostgreSQL databases. ' \
-                   'It\'s built on top of the psycopg2 library, providing an easier and more streamlined interface.'
+
+
+with open("app/README.md", "r") as f:
+    long_description = f.read()
 
 # Setting up
 setup(
@@ -13,7 +15,7 @@ setup(
     author_email="qxh5696@g.rit.edu",
     description=DESCRIPTION,
     long_description_content_type="text/markdown",
-    long_description=LONG_DESCRIPTION,
+    long_description=long_description,
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     install_requires=['psycopg2-binary'],
