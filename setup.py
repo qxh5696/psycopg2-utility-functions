@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.10'
+VERSION = '0.0.11'
 DESCRIPTION = 'Utility functions/wrapper for psycopg2 python package'
 LONG_DESCRIPTION = 'Python package that extends basic functionality for interacting with PostgreSQL databases. ' \
                    'It\'s built on top of the psycopg2 library, providing an easier and more streamlined interface.'
