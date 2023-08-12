@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.11'
+VERSION = '0.0.12'
 DESCRIPTION = 'Utility functions/wrapper for psycopg2 python package'
 
 
-with open("app/README.md", "r") as f:
+with open("./README.md", "r") as f:
     long_description = f.read()
 
 # Setting up
