@@ -61,7 +61,7 @@ def fetch_data(connection, query, cls=None):
     Args:
         connection: The connection object for the database connection.
         query (str): The SQL query to fetch data from the database.
-        cls (class): The class to be instantiated for each fetched item.
+        cls (class) - optional: The class to be instantiated for each fetched item.
 
     Returns:
         list: A list of objects instantiated from the specified class.
