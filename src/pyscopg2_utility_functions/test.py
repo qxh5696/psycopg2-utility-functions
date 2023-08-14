@@ -224,6 +224,28 @@ class Psycopg2UtilityFunctionsTests(unittest.TestCase):
             self.assertEqual(obj.name, expected_row[1])
             self.assertEqual(obj.email, expected_row[2])
 
+    @patch('psycopg2.connect')
+    def test_fetch_data_without_cls(self, mock_connect):
+        # Create a MagicMock for the cursor and response
+        mock_cursor = MagicMock()
+        mock_response = [('Alice', 30), ('Bob', 25)]
+        mock_cursor.fetchall.return_value = mock_response
+
+        # Attach the cursor to the mock connection
+        mock_connection = MagicMock()
+        mock_connection.cursor.return_value = mock_cursor
+
+        # Set up the mock connect to return the mock connection
+        mock_connect.return_value = mock_connection
+
+        # Fetch data without cls parameter
+        query = "SELECT name, age FROM test_table WHERE age > 25;"
+        fetched_data = fetch_data(mock_connection, query)
+
+        # Check if fetched_data is a list of tuples
+        self.assertIsInstance(fetched_data, list)
+        self.assertTrue(all(isinstance(data, tuple) for data in fetched_data))
+
     def test_fetch_data_error(self):
         # Define the example query
         query = "SELECT * FROM non_existent_table;"

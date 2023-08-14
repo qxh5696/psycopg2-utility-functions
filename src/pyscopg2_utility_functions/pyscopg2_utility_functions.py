@@ -54,7 +54,7 @@ def execute_query(connection, query):
         raise e
 
 
-def fetch_data(connection, query, cls):
+def fetch_data(connection, query, cls=None):
     """
     Retrieves data from the database based on the SQL query and instantiates objects of the specified class.
 
@@ -75,10 +75,13 @@ def fetch_data(connection, query, cls):
         result = cursor.fetchall()
         cursor.close()
 
-        objects = []
-        for row in result:
-            obj = cls(*row)
-            objects.append(obj)
+        if cls is None:
+            return result
+        else:
+            objects = []
+            for row in result:
+                obj = cls(*row)
+                objects.append(obj)
 
         return objects
     except psycopg2.Error as e:
